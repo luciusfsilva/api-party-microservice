@@ -1,0 +1,9 @@
+server:
+  port: 8801
+spring:
+  application:
+    name: api-party
+  data:
+    mongodb:
+      uri: mongodb+srv://rootDbUser:<r00t123>@cluster0.0sbi9.mongodb.net/clientewebflux?retryWrites=true&w=majority
+      database: cliente

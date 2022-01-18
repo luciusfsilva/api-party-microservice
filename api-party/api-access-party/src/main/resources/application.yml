@@ -1,0 +1,45 @@
+server:
+  port: 8810
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+resilience4j:
+  bulkhead:
+    instances:
+      default:
+        max-concurrent-calls: 10
+  ratelimiter:
+    limiters:
+      default:
+        limit-for-period: 2
+        limit-refresh-period: 10s
+  retry:
+    instances:
+      foo-bar:
+        max-attempts: 4
+        wait-duration: 1s
+        enable-exponential-backoff: true
+spring:
+  application:
+    name: api-access-party
+  data:
+    mongodb:
+      uri: mongodb+srv://rootDbUser:<r00t123>@cluster0.0sbi9.mongodb.net/clientewebflux?retryWrites=true&w=majority
+      database: clienteaccess
+      
+  mail:
+    host: smtp.mail.yahoo.com
+    port: 587 
+    username: appjavaservertest52@yahoo.com
+    password: Fa-uhF9+29t)@ys
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+        auth: true
+        starttls.enable: true
+        ssl.trust: smtp.mail.yahoo.com
+springdoc:
+  show-actuator: true
+  api-docs:
+    path: api-access-party/v3/api-docs

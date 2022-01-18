@@ -1,0 +1,33 @@
+server:
+  port: 8991
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: api-party
+        uri: lb://api-party
+        predicates:
+        - Path=/api-party/**
+      - id: api-access-party
+        uri: lb://api-access-party
+        predicates:
+        - Path=/api-access-party/**
+      - id: openapi
+        uri: lb://api-gateway
+        predicates:
+        - Path=/v3/api-docs/**
+        filters:
+        - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+  sleuth:
+    sampler:
+      probability: 1.0 
+      
