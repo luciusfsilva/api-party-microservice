@@ -42,6 +42,9 @@ public class ClienteServiceImpl implements ClienteService{
 
 	@Override
 	public Cliente addNovoCliente(Cliente cliente) {
+		Integer codigocliente = new Random().nextInt();
+		codigocliente = codigocliente < 0 ? codigocliente * (-1) : codigocliente;
+		cliente.setCodigoCliente(codigocliente.toString());
 		Cliente c = repository.save(cliente);
 		if (!ObjectUtils.isEmpty(c)) {
 			Integer protocolo = new Random().nextInt(); 

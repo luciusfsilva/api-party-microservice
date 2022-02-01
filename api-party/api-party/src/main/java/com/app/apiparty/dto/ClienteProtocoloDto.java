@@ -11,6 +11,8 @@ public class ClienteProtocoloDto {
 	@Getter @Setter
 	private String nome;
 	@Getter @Setter
+	private String email;
+	@Getter @Setter
 	private String codigoCliente;
 	@Getter @Setter
 	private String protocolo;
@@ -23,6 +25,7 @@ public class ClienteProtocoloDto {
 		this.codigoCliente = clienteProtocolo.getCodigoCliente();
 		this.protocolo = clienteProtocolo.getProtocolo();
 		this.dataHoraCadastro = clienteProtocolo.getDataHoraCadastro();
+		this.email = cliente.getEmail();
 	}
 	
 	

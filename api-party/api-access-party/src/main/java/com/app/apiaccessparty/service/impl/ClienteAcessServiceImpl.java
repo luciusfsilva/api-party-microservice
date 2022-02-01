@@ -1,6 +1,7 @@
 package com.app.apiaccessparty.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class ClienteAcessServiceImpl implements ClienteAccessService{
 	private JavaMailSender email;
 
 	@Override
-	public ClienteAcess exibirDadosCliente(String codigoCliente) {
+	public List<ClienteAcess> exibirDadosCliente(String codigoCliente) {
 		return repository.findByCodigoCliente(codigoCliente);
 	}
 
@@ -47,7 +48,7 @@ public class ClienteAcessServiceImpl implements ClienteAccessService{
 		Cliente cliente = proxy.getClienteParty(codigocliente);
 		Integer codigoAcesso = new Random().nextInt();
 		var codigoCliente = cliente.getCodigoCliente();
-		var acessoEnviado = acessoEnviado(cliente);
+		var acessoEnviado = acessoEnviado(cliente, codigoAcesso.toString());
 		return ClienteAcess.builder().codigoAcesso(codigoAcesso.toString()).codigoCliente(codigoCliente)
 				.acessoEnviado(acessoEnviado.toString())
 				.emailConfirmEnviado(acessoEnviado.toString())
@@ -55,25 +56,25 @@ public class ClienteAcessServiceImpl implements ClienteAccessService{
 	}
 
 	//Serviço de SMS tem que pagar, então fiz uma simulação.
-	private Boolean acessoEnviado(Cliente cliente) {
+	private Boolean acessoEnviado(Cliente cliente, String codAcesso) {
 		Boolean envioSms = true;
 		Boolean envioEmailConfirmacao = false;
 		if (envioSms) {
-			confirmacaoEnvio(cliente);
+			confirmacaoEnvio(cliente, codAcesso);
 			envioEmailConfirmacao = true;
 			return envioEmailConfirmacao;
 		}
 		return envioEmailConfirmacao;
 	}
 	
-	private Boolean confirmacaoEnvio(Cliente cliente) {
+	private Boolean confirmacaoEnvio(Cliente cliente, String codAcesso) {
 		Boolean confEnvio = false;
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setFrom("appjavaservertest52@yahoo.com");
 			message.setTo(cliente.getEmail());
 			message.setSubject("Código de acesso confirmado");
-			message.setText("Cliente de código " + cliente.getCodAcesso() + "validado com sucesso no sistema");
+			message.setText("Cliente de código " + cliente.getCodigoCliente() + ", validado com sucesso no sistema com acesso: " + codAcesso + ".");
 			email.send(message);
 			EmailEnviado em = EmailEnviado.builder()
 					.emailFrom(message.getFrom())

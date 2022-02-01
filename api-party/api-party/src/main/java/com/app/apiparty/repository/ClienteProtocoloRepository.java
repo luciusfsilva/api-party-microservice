@@ -6,5 +6,5 @@ import com.app.apiparty.model.ClienteProtocolo;
 
 public interface ClienteProtocoloRepository extends MongoRepository<ClienteProtocolo, String>{
 
-	ClienteProtocolo findByCodigoCliente(String codigoCliente);
+	public ClienteProtocolo findByCodigoCliente(String codigoCliente);
 }

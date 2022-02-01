@@ -25,14 +25,14 @@ spring:
     name: api-access-party
   data:
     mongodb:
-      uri: mongodb+srv://rootDbUser:<r00t123>@cluster0.0sbi9.mongodb.net/clientewebflux?retryWrites=true&w=majority
+      uri: mongodb+srv://rootDbUser:r00t123@cluster0.0sbi9.mongodb.net/clientewebflux?retryWrites=true&w=majority
       database: clienteaccess
       
   mail:
     host: smtp.mail.yahoo.com
     port: 587 
     username: appjavaservertest52@yahoo.com
-    password: Fa-uhF9+29t)@ys
+    password: tycdkrcajiabdtsi
     protocol: smtp
     tls: true
     properties.mail.smtp:
